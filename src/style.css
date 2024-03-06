@@ -1,0 +1,78 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100dvw;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-container {
+  width: 90%;
+  height: 60%;
+  background-color: lightgray;
+
+  .carousel-ol-list {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    li:not(.active) {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .active {
+      position: static;
+      opacity: 1;
+      transition: all 0.5s ease;
+      transform: translateX(0%);
+    }
+    .active > img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .previous,
+    .next {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background-color: transparent;
+      background-repeat: no-repeat;
+      background-size: 150px;
+      border: none;
+      top: 50%;
+      transform: translateY(-50%);
+      filter: invert(100%) sepia(0%) saturate(7491%) hue-rotate(353deg)
+        brightness(103%) contrast(104%);
+    }
+
+    .previous:hover {
+      cursor: pointer;
+    }
+    .next:hover {
+      cursor: pointer;
+    }
+
+    .next {
+      right: 0;
+      background-image: url(./rightArrow.svg);
+    }
+
+    .previous {
+      left: 0;
+      opacity: 1;
+      background-image: url(./Arrowleft.svg);
+    }
+
+    .carousel-item {
+      list-style: none;
+    }
+  }
+}
