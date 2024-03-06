@@ -60,13 +60,16 @@ const previous = function goToPreviousItem(list) {
   }
 };
 
+const timer = function setIntervalForAutoRotation(list) {
+  setInterval(next, 5000, list);
+};
+
 const carousel = function getAllCarouselItemsSetIndexAndAttachEvents() {
   const imagesArr = [Image1, Image2, Image3];
   const nextButton = document.querySelector(".next");
   const previousButton = document.querySelector(".previous");
   const listItems = document.querySelectorAll(".carousel-item");
   listItems.forEach((item, idx) => {
-    item.setAttribute("data-idx", idx);
     if (idx === 0) {
       find(idx);
       item.classList.add("active");
@@ -81,6 +84,8 @@ const carousel = function getAllCarouselItemsSetIndexAndAttachEvents() {
   attach(previousButton, () => {
     previous(listItems);
   });
+
+  timer(listItems);
 };
 
 export default carousel;
