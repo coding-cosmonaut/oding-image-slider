@@ -10,6 +10,18 @@ import Image3 from "./image3.jpg";
 //   }
 // };
 
+const find = function findActiveIndicator(index) {
+  const indicatorList = document.querySelectorAll(".indicator");
+
+  for (let i = 0; i < indicatorList.length; i++) {
+    if (indicatorList[index] === indicatorList[i]) {
+      indicatorList[index].classList.add("indicator-active");
+    } else {
+      indicatorList[i].classList.remove("indicator-active");
+    }
+  }
+};
+
 const attach = function attachClickEvent(el, func) {
   el.addEventListener("click", func);
 };
@@ -21,8 +33,10 @@ const next = function goToNextItem(list) {
 
       if (list[i + 1]) {
         list[i + 1].classList.add("active");
+        find(i + 1);
       } else {
         list[(i = 0)].classList.add("active");
+        find((i = 0));
       }
       break;
     }
@@ -36,8 +50,10 @@ const previous = function goToPreviousItem(list) {
 
       if (list[i - 1]) {
         list[i - 1].classList.add("active");
+        find(i - 1);
       } else {
         list[(i = list.length - 1)].classList.add("active");
+        find((i = list.length - 1));
       }
       break;
     }
@@ -51,7 +67,10 @@ const carousel = function getAllCarouselItemsSetIndexAndAttachEvents() {
   const listItems = document.querySelectorAll(".carousel-item");
   listItems.forEach((item, idx) => {
     item.setAttribute("data-idx", idx);
-    if (idx === 0) item.classList.add("active");
+    if (idx === 0) {
+      find(idx);
+      item.classList.add("active");
+    }
     const imgEl = document.createElement("img");
     item.append(imgEl);
     imgEl.src = imagesArr[idx];
