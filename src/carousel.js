@@ -10,20 +10,45 @@ import Image3 from "./image3.jpg";
 //   }
 // };
 
+const attach = function attachClickEvent(el, func) {
+  el.addEventListener("click", func);
+};
+
 const find = function findActiveIndicator(index) {
   const indicatorList = document.querySelectorAll(".indicator");
+  const carouselItems = document.querySelectorAll(".carousel-item");
 
   for (let i = 0; i < indicatorList.length; i++) {
-    if (indicatorList[index] === indicatorList[i]) {
+    if (indicatorList[i] === this) {
+      carouselItems[i].classList.add("active");
+
+      if (i === 0) {
+        carouselItems[i + 1].classList.remove("active");
+        carouselItems[i + 2].classList.remove("active");
+        indicatorList[i].classList.add("indicator-active");
+        indicatorList[i + 1].classList.remove("indicator-active");
+        indicatorList[i + 2].classList.remove("indicator-active");
+      } else if (i === 1) {
+        carouselItems[i + 1].classList.remove("active");
+        carouselItems[i - 1].classList.remove("active");
+        indicatorList[i].classList.add("indicator-active");
+        indicatorList[i + 1].classList.remove("indicator-active");
+        indicatorList[i - 1].classList.remove("indicator-active");
+      } else {
+        carouselItems[i - 1].classList.remove("active");
+        carouselItems[i - 2].classList.remove("active");
+        indicatorList[i].classList.add("indicator-active");
+        indicatorList[i - 1].classList.remove("indicator-active");
+        indicatorList[i - 2].classList.remove("indicator-active");
+      }
+    } else if (indicatorList[index] === indicatorList[i]) {
+      console.log("run");
       indicatorList[index].classList.add("indicator-active");
     } else {
+      console.log("ruunning");
       indicatorList[i].classList.remove("indicator-active");
     }
   }
-};
-
-const attach = function attachClickEvent(el, func) {
-  el.addEventListener("click", func);
 };
 
 const next = function goToNextItem(list) {
@@ -69,6 +94,9 @@ const carousel = function getAllCarouselItemsSetIndexAndAttachEvents() {
   const nextButton = document.querySelector(".next");
   const previousButton = document.querySelector(".previous");
   const listItems = document.querySelectorAll(".carousel-item");
+  document
+    .querySelectorAll(".indicator")
+    .forEach((item) => item.addEventListener("click", find));
   listItems.forEach((item, idx) => {
     if (idx === 0) {
       find(idx);
